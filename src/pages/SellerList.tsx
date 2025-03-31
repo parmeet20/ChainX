@@ -12,10 +12,10 @@ import { SellerCard } from "@/components/cards/seller-card";
 import { Button } from "@/components/ui/button";
 
 interface SellerListProps {
-  sellers: ISeller[];
+  sellers?: ISeller[];
 }
 
-const SellerList = ({ sellers }: SellerListProps) => {
+const SellerList = ({ sellers = [] }: SellerListProps) => {
   return (
     <div className="space-y-4 relative">
       <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 backdrop-blur-sm pb-4">

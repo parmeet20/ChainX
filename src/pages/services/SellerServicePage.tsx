@@ -20,15 +20,34 @@ const SellerServicePage = () => {
   }, [publicKey, sendTransaction, signTransaction]);
 
   const [sellers, setSellers] = useState<ISeller[]>([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-    const fetch = async () => {
-      if (!publicKey || !program) return;
-      const s = await getAllSellers(program, publicKey);
-      setSellers(s);
+    const fetchData = async () => {
+      if (!publicKey || !program) {
+        setLoading(false);
+        return;
+      }
+      
+      try {
+        const s = await getAllSellers(program, publicKey);
+        setSellers(s || []); // Ensure array even if null/undefined
+      } catch (error) {
+        console.error("Error fetching sellers:", error);
+        setSellers([]);
+      } finally {
+        setLoading(false);
+      }
     };
-    fetch();
+
+    fetchData();
   }, [program, publicKey]);
+
+  if (loading) {
+    return <div className="flex h-screen pt-16 dark:bg-gray-900 items-center justify-center">
+      Loading sellers...
+    </div>;
+  }
 
   return (
     <div className="flex h-screen pt-16 dark:bg-gray-900">
