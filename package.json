@@ -30,6 +30,7 @@
     "@solana/web3.js": "1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.6.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.485.0",
