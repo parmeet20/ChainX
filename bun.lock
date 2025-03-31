@@ -22,6 +22,7 @@
         "@solana/wallet-adapter-react-ui": "^0.9.36",
         "@solana/wallet-adapter-wallets": "^0.19.33",
         "@solana/web3.js": "1",
+        "@tailwindcss/oxide-linux-x64-gnu": "^4.0.17",
         "@types/leaflet": "^1.9.17",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -806,6 +807,8 @@
     "@tailwindcss/node": ["@tailwindcss/node@4.0.17", "", { "dependencies": { "enhanced-resolve": "^5.18.1", "jiti": "^2.4.2", "tailwindcss": "4.0.17" } }, ""],
 
     "@tailwindcss/oxide": ["@tailwindcss/oxide@4.0.17", "", { "optionalDependencies": { "@tailwindcss/oxide-win32-x64-msvc": "4.0.17" } }, ""],
+
+    "@tailwindcss/oxide-linux-x64-gnu": ["@tailwindcss/oxide-linux-x64-gnu@4.0.17", "", { "os": "linux", "cpu": "x64" }, "sha512-gELJzOHK6GDoIpm/539Golvk+QWZjxQcbkKq9eB2kzNkOvrP0xc5UPgO9bIMNt1M48mO8ZeNenCMGt6tfkvVBg=="],
 
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.0.17", "", { "os": "win32", "cpu": "x64" }, ""],
 
@@ -2619,8 +2622,6 @@
 
     "@metamask/utils/superstruct": ["superstruct@1.0.4", "", {}, ""],
 
-    "@react-native/codegen/yargs": ["yargs@17.7.2", "", { "dependencies": { "cliui": "^8.0.1", "escalade": "^3.1.1", "get-caller-file": "^2.0.5", "require-directory": "^2.1.1", "string-width": "^4.2.3", "y18n": "^5.0.5", "yargs-parser": "^21.1.1" } }, ""],
-
     "@react-native/community-cli-plugin/debug": ["debug@2.6.9", "", { "dependencies": { "ms": "2.0.0" } }, ""],
 
     "@react-native/community-cli-plugin/semver": ["semver@7.7.1", "", { "bin": "bin/semver.js" }, ""],
@@ -2704,8 +2705,6 @@
     "@walletconnect/events/tslib": ["tslib@1.14.1", "", {}, ""],
 
     "@walletconnect/jsonrpc-utils/tslib": ["tslib@1.14.1", "", {}, ""],
-
-    "@walletconnect/jsonrpc-ws-connection/ws": ["ws@7.5.10", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": "^5.0.2" } }, ""],
 
     "@walletconnect/qrcode-modal/qrcode": ["qrcode@1.4.4", "", { "dependencies": { "buffer": "^5.4.3", "buffer-alloc": "^1.2.0", "buffer-from": "^1.1.1", "dijkstrajs": "^1.0.1", "isarray": "^2.0.1", "pngjs": "^3.3.0", "yargs": "^13.2.4" }, "bin": "bin/qrcode" }, ""],
 
@@ -2795,8 +2794,6 @@
 
     "jest-util/picomatch": ["picomatch@2.3.1", "", {}, ""],
 
-    "jest-validate/camelcase": ["camelcase@6.3.0", "", {}, ""],
-
     "jest-worker/supports-color": ["supports-color@8.1.1", "", { "dependencies": { "has-flag": "^4.0.0" } }, ""],
 
     "lighthouse-logger/debug": ["debug@2.6.9", "", { "dependencies": { "ms": "2.0.0" } }, ""],
@@ -2804,10 +2801,6 @@
     "make-dir/semver": ["semver@5.7.2", "", { "bin": "bin/semver" }, ""],
 
     "metro/debug": ["debug@2.6.9", "", { "dependencies": { "ms": "2.0.0" } }, ""],
-
-    "metro/ws": ["ws@7.5.10", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": "^5.0.2" } }, ""],
-
-    "metro/yargs": ["yargs@17.7.2", "", { "dependencies": { "cliui": "^8.0.1", "escalade": "^3.1.1", "get-caller-file": "^2.0.5", "require-directory": "^2.1.1", "string-width": "^4.2.3", "y18n": "^5.0.5", "yargs-parser": "^21.1.1" } }, ""],
 
     "metro-file-map/debug": ["debug@2.6.9", "", { "dependencies": { "ms": "2.0.0" } }, ""],
 
@@ -2829,8 +2822,6 @@
 
     "qrcode/yargs": ["yargs@15.4.1", "", { "dependencies": { "cliui": "^6.0.0", "decamelize": "^1.2.0", "find-up": "^4.1.0", "get-caller-file": "^2.0.1", "require-directory": "^2.1.1", "require-main-filename": "^2.0.0", "set-blocking": "^2.0.0", "string-width": "^4.2.0", "which-module": "^2.0.0", "y18n": "^4.0.0", "yargs-parser": "^18.1.2" } }, ""],
 
-    "react-devtools-core/ws": ["ws@7.5.10", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": "^5.0.2" } }, ""],
-
     "react-native/commander": ["commander@12.1.0", "", {}, ""],
 
     "react-native/regenerator-runtime": ["regenerator-runtime@0.13.11", "", {}, ""],
@@ -2846,8 +2837,6 @@
     "recast/source-map": ["source-map@0.6.1", "", {}, ""],
 
     "regjsparser/jsesc": ["jsesc@3.0.2", "", { "bin": "bin/jsesc" }, ""],
-
-    "ripple-lib/ws": ["ws@7.5.10", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": "^5.0.2" } }, ""],
 
     "rpc-websockets/@types/ws": ["@types/ws@8.18.0", "", { "dependencies": { "@types/node": "*" } }, ""],
 
@@ -2878,8 +2867,6 @@
     "stats-gl/three": ["three@0.170.0", "", {}, ""],
 
     "string-width/emoji-regex": ["emoji-regex@8.0.0", "", {}, ""],
-
-    "terser/commander": ["commander@2.20.3", "", {}, ""],
 
     "tiny-secp256k1/bn.js": ["bn.js@4.12.1", "", {}, ""],
 
@@ -2945,12 +2932,6 @@
 
     "@metamask/utils/@ethereumjs/tx/@ethereumjs/common": ["@ethereumjs/common@3.2.0", "", { "dependencies": { "@ethereumjs/util": "^8.1.0", "crc-32": "^1.2.0" } }, ""],
 
-    "@react-native/codegen/yargs/cliui": ["cliui@8.0.1", "", { "dependencies": { "string-width": "^4.2.0", "strip-ansi": "^6.0.1", "wrap-ansi": "^7.0.0" } }, ""],
-
-    "@react-native/codegen/yargs/y18n": ["y18n@5.0.8", "", {}, ""],
-
-    "@react-native/codegen/yargs/yargs-parser": ["yargs-parser@21.1.1", "", {}, ""],
-
     "@react-native/community-cli-plugin/debug/ms": ["ms@2.0.0", "", {}, ""],
 
     "@react-native/dev-middleware/debug/ms": ["ms@2.0.0", "", {}, ""],
@@ -3008,12 +2989,6 @@
     "metro-file-map/debug/ms": ["ms@2.0.0", "", {}, ""],
 
     "metro/debug/ms": ["ms@2.0.0", "", {}, ""],
-
-    "metro/yargs/cliui": ["cliui@8.0.1", "", { "dependencies": { "string-width": "^4.2.0", "strip-ansi": "^6.0.1", "wrap-ansi": "^7.0.0" } }, ""],
-
-    "metro/yargs/y18n": ["y18n@5.0.8", "", {}, ""],
-
-    "metro/yargs/yargs-parser": ["yargs-parser@21.1.1", "", {}, ""],
 
     "pkg-dir/find-up/locate-path": ["locate-path@3.0.0", "", { "dependencies": { "p-locate": "^3.0.0", "path-exists": "^3.0.0" } }, ""],
 
@@ -3113,10 +3088,6 @@
 
     "@istanbuljs/load-nyc-config/find-up/locate-path/p-locate": ["p-locate@4.1.0", "", { "dependencies": { "p-limit": "^2.2.0" } }, ""],
 
-    "@istanbuljs/load-nyc-config/js-yaml/argparse/sprintf-js": ["sprintf-js@1.0.3", "", {}, ""],
-
-    "@react-native/codegen/yargs/cliui/wrap-ansi": ["wrap-ansi@7.0.0", "", { "dependencies": { "ansi-styles": "^4.0.0", "string-width": "^4.1.0", "strip-ansi": "^6.0.0" } }, ""],
-
     "@walletconnect/browser-utils/@walletconnect/window-metadata/@walletconnect/window-getters/tslib": ["tslib@1.14.1", "", {}, ""],
 
     "@walletconnect/qrcode-modal/qrcode/yargs/cliui": ["cliui@5.0.0", "", { "dependencies": { "string-width": "^3.1.0", "strip-ansi": "^5.2.0", "wrap-ansi": "^5.1.0" } }, ""],
@@ -3128,8 +3099,6 @@
     "@walletconnect/qrcode-modal/qrcode/yargs/y18n": ["y18n@4.0.3", "", {}, ""],
 
     "@walletconnect/qrcode-modal/qrcode/yargs/yargs-parser": ["yargs-parser@13.1.2", "", { "dependencies": { "camelcase": "^5.0.0", "decamelize": "^1.2.0" } }, ""],
-
-    "metro/yargs/cliui/wrap-ansi": ["wrap-ansi@7.0.0", "", { "dependencies": { "ansi-styles": "^4.0.0", "string-width": "^4.1.0", "strip-ansi": "^6.0.0" } }, ""],
 
     "pkg-dir/find-up/locate-path/p-locate": ["p-locate@3.0.0", "", { "dependencies": { "p-limit": "^2.0.0" } }, ""],
 
