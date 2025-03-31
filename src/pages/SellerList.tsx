@@ -15,7 +15,7 @@ interface SellerListProps {
   sellers: ISeller[];
 }
 
-const SellerList = ({ sellers }: SellerListProps) => {
+export const SellerList = ({ sellers }: SellerListProps) => {
   return (
     <div className="space-y-4 relative">
       <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 backdrop-blur-sm pb-4">
@@ -63,5 +63,3 @@ const SellerList = ({ sellers }: SellerListProps) => {
     </div>
   );
 };
-
-export default SellerList;
