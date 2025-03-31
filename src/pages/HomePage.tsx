@@ -6,7 +6,6 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { GlobeDemo } from "@/components/shared/GlobeDemo";
 
 const HomePage = () => {
   return (
@@ -58,7 +57,6 @@ const HomePage = () => {
             </Link>
           </div>
         </div>
-        <GlobeDemo />
 
         {/* Feature Cards */}
         <div className="grid md:grid-cols-3 gap-8 mt-24 max-w-7xl mx-auto">
