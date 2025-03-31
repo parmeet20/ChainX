@@ -28,6 +28,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.36",
     "@solana/wallet-adapter-wallets": "^0.19.33",
     "@solana/web3.js": "1",
+    "@types/leaflet": "^1.9.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
