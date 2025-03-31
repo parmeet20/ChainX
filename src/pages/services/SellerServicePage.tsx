@@ -3,7 +3,7 @@ import { ISeller } from "@/utils/types";
 import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SellerList } from "../SellerList";
+import  SellerList  from "../SellerList";
 import { getAllSellers } from "@/services/seller/sellerService";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { getProvider } from "@/services/blockchain";
