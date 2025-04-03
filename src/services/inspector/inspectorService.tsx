@@ -79,6 +79,13 @@ export const withdrawInspectedProductBalance = async (
 ): Promise<TransactionSignature> => {
   const user_pda = await getUserWithPda(program, publicKey);
   const usr = await program.account.user.fetch(new PublicKey(user_pda));
+
+  const [programStatePda] = PublicKey.findProgramAddressSync(
+    [Buffer.from("program_state")],
+    program.programId
+  );
+  const ownr = await program.account.programState.fetch(programStatePda);
+
   const [transactionPda] = PublicKey.findProgramAddressSync(
     [
       Buffer.from("transaction"),
@@ -88,12 +95,14 @@ export const withdrawInspectedProductBalance = async (
     program.programId
   );
   const tx = await program.methods
-    .withdrawInspectorBalance(new BN(amount*LAMPORTS_PER_SOL))
+    .withdrawInspectorBalance(new BN(amount * LAMPORTS_PER_SOL))
     .accountsPartial({
       transaction: transactionPda,
       inspector: new PublicKey(inspector_pda),
       user: user_pda,
       payer: publicKey,
+      programsState: programStatePda,
+      platformAddress: ownr.owner,
       systemProgram: SystemProgram.programId,
     })
     .signers([])

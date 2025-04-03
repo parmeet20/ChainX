@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/supply_chain.json`.
  */
 export type SupplyChain = {
-  "address": "3H967UCXdgSYn8tTK7bYXxGHSsiDNF8NLKXQ4tPSb1JL",
+  "address": "AGyhvJht9bc3CBhd52gWHgQjy2RSZspJtQmX6PqK8XfG",
   "metadata": {
     "name": "supplyChain",
     "version": "0.1.0",
@@ -499,6 +499,57 @@ export type SupplyChain = {
       ]
     },
     {
+      "name": "initializeProgramState",
+      "discriminator": [
+        114,
+        90,
+        170,
+        208,
+        223,
+        41,
+        40,
+        160
+      ],
+      "accounts": [
+        {
+          "name": "programState",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  103,
+                  114,
+                  97,
+                  109,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "inspectProductInstruction",
       "discriminator": [
         230,
@@ -760,6 +811,14 @@ export type SupplyChain = {
           "writable": true
         },
         {
+          "name": "programsState",
+          "writable": true
+        },
+        {
+          "name": "platformAddress",
+          "writable": true
+        },
+        {
           "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
@@ -844,6 +903,14 @@ export type SupplyChain = {
           "writable": true
         },
         {
+          "name": "programsState",
+          "writable": true
+        },
+        {
+          "name": "platformAddress",
+          "writable": true
+        },
+        {
           "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
@@ -883,6 +950,14 @@ export type SupplyChain = {
         },
         {
           "name": "inspector",
+          "writable": true
+        },
+        {
+          "name": "programsState",
+          "writable": true
+        },
+        {
+          "name": "platformAddress",
           "writable": true
         },
         {
@@ -965,6 +1040,19 @@ export type SupplyChain = {
       ]
     },
     {
+      "name": "programState",
+      "discriminator": [
+        77,
+        209,
+        137,
+        229,
+        149,
+        67,
+        167,
+        230
+      ]
+    },
+    {
       "name": "seller",
       "discriminator": [
         76,
@@ -1038,91 +1126,101 @@ export type SupplyChain = {
     },
     {
       "code": 6001,
+      "name": "programAlreadyInitialized",
+      "msg": "program already initialized"
+    },
+    {
+      "code": 6002,
       "name": "invalidProductId",
       "msg": "invalid product id"
     },
     {
-      "code": 6002,
+      "code": 6003,
       "name": "insufficientStock",
       "msg": "insufficient stock"
     },
     {
-      "code": 6003,
+      "code": 6004,
       "name": "insufficientBalance",
       "msg": "insufficient balance"
     },
     {
-      "code": 6004,
+      "code": 6005,
+      "name": "insifficentWithdraw",
+      "msg": "should withdraw atleast 1 SOL"
+    },
+    {
+      "code": 6006,
       "name": "invalidWarehouse",
       "msg": "warehouse not found"
     },
     {
-      "code": 6005,
+      "code": 6007,
       "name": "invalidLogistics",
       "msg": "logistics not found"
     },
     {
-      "code": 6006,
+      "code": 6008,
       "name": "invalidInspectionOutcome",
       "msg": "inspection outcome too long"
     },
     {
-      "code": 6007,
+      "code": 6009,
       "name": "invalidNotes",
       "msg": "notes too long"
     },
     {
-      "code": 6008,
+      "code": 6010,
       "name": "invalidName",
       "msg": "name too long"
     },
     {
-      "code": 6009,
+      "code": 6011,
       "name": "invalidDescription",
       "msg": "description too long"
     },
     {
-      "code": 6010,
+      "code": 6012,
       "name": "invalidContactInfo",
       "msg": "contact info too long"
     },
     {
-      "code": 6011,
+      "code": 6013,
       "name": "invalidRole",
       "msg": "invalid role"
     },
     {
-      "code": 6012,
+      "code": 6014,
       "name": "invalidFactory",
       "msg": "invalid factory"
     },
     {
-      "code": 6013,
+      "code": 6015,
       "name": "qualityChecked",
       "msg": "quality already checked"
     },
     {
-      "code": 6014,
+      "code": 6016,
       "name": "productNotQualityChecked",
       "msg": "product not quality checked"
     },
     {
-      "code": 6015,
+      "code": 6017,
       "name": "invalidInspectorId",
       "msg": "invalid inspector id"
     },
     {
-      "code": 6016,
+      "code": 6018,
       "name": "invalidInspector",
       "msg": "invalid inspector"
     },
     {
-      "code": 6017,
+      "code": 6019,
       "name": "invalidUser",
       "msg": "invalid user"
     },
     {
-      "code": 6018,
+      "code": 6020,
       "name": "overflow",
       "msg": "overflow"
     }
@@ -1428,6 +1526,26 @@ export type SupplyChain = {
           {
             "name": "owner",
             "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "programState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "platformFee",
+            "type": "u64"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
           }
         ]
       }

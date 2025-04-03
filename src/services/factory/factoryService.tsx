@@ -150,12 +150,21 @@ export const withdrawFactoryBalance = async (
     ],
     program.programId
   );
+
+  const [programStatePda] = PublicKey.findProgramAddressSync(
+    [Buffer.from("program_state")],
+    program.programId
+  );
+  const ownr = await program.account.programState.fetch(programStatePda);
+
   const tx = await program.methods
-    .withdrawBalanceAsFactory(new BN(amount*LAMPORTS_PER_SOL))
+    .withdrawBalanceAsFactory(new BN(amount * LAMPORTS_PER_SOL))
     .accountsPartial({
       transaction: transactionPda,
       factory: new PublicKey(factory_pda),
       user: user_pda,
+      programsState: programStatePda,
+      platformAddress: ownr.owner,
       owner: publicKey,
       systemProgram: SystemProgram.programId,
     })

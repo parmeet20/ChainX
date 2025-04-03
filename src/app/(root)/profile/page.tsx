@@ -150,7 +150,7 @@ const Profile = () => {
   if (isLoading && publicKey) {
     // Show skeleton only when trying to load with a connected wallet
     return (
-      <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-4 sm:p-8 pt-20 sm:pt-24 animate-pulse">
+      <div className="min-h-screen w-full pt-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-4 sm:p-8 pt-20 sm:pt-24 animate-pulse">
         <div className="max-w-4xl mx-auto">
           {/* Profile Header Skeleton */}
           <div className="flex flex-col items-center mb-8 sm:mb-12 space-y-4">
@@ -192,7 +192,7 @@ const Profile = () => {
   // --- Wallet Not Connected State ---
   if (!publicKey) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950 p-4">
+      <div className="min-h-screen flex pt-24 items-center justify-center bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950 p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -228,7 +228,7 @@ const Profile = () => {
   if (!user && !isLoading) {
     // Ensure loading is finished before showing this
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-purple-50 dark:from-slate-900 dark:to-purple-950 p-4">
+      <div className="min-h-screen flex items-center pt-24 justify-center bg-gradient-to-br from-slate-50 to-purple-50 dark:from-slate-900 dark:to-purple-950 p-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

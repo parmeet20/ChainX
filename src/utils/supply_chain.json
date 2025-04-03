@@ -1,5 +1,5 @@
 {
-  "address": "3H967UCXdgSYn8tTK7bYXxGHSsiDNF8NLKXQ4tPSb1JL",
+  "address": "AGyhvJht9bc3CBhd52gWHgQjy2RSZspJtQmX6PqK8XfG",
   "metadata": {
     "name": "supply_chain",
     "version": "0.1.0",
@@ -493,6 +493,57 @@
       ]
     },
     {
+      "name": "initialize_program_state",
+      "discriminator": [
+        114,
+        90,
+        170,
+        208,
+        223,
+        41,
+        40,
+        160
+      ],
+      "accounts": [
+        {
+          "name": "program_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  103,
+                  114,
+                  97,
+                  109,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "inspect_product_instruction",
       "discriminator": [
         230,
@@ -754,6 +805,14 @@
           "writable": true
         },
         {
+          "name": "programs_state",
+          "writable": true
+        },
+        {
+          "name": "platform_address",
+          "writable": true
+        },
+        {
           "name": "system_program",
           "address": "11111111111111111111111111111111"
         }
@@ -838,6 +897,14 @@
           "writable": true
         },
         {
+          "name": "programs_state",
+          "writable": true
+        },
+        {
+          "name": "platform_address",
+          "writable": true
+        },
+        {
           "name": "system_program",
           "address": "11111111111111111111111111111111"
         }
@@ -877,6 +944,14 @@
         },
         {
           "name": "inspector",
+          "writable": true
+        },
+        {
+          "name": "programs_state",
+          "writable": true
+        },
+        {
+          "name": "platform_address",
           "writable": true
         },
         {
@@ -959,6 +1034,19 @@
       ]
     },
     {
+      "name": "ProgramState",
+      "discriminator": [
+        77,
+        209,
+        137,
+        229,
+        149,
+        67,
+        167,
+        230
+      ]
+    },
+    {
       "name": "Seller",
       "discriminator": [
         76,
@@ -1032,91 +1120,101 @@
     },
     {
       "code": 6001,
+      "name": "ProgramAlreadyInitialized",
+      "msg": "program already initialized"
+    },
+    {
+      "code": 6002,
       "name": "InvalidProductId",
       "msg": "invalid product id"
     },
     {
-      "code": 6002,
+      "code": 6003,
       "name": "InsufficientStock",
       "msg": "insufficient stock"
     },
     {
-      "code": 6003,
+      "code": 6004,
       "name": "InsufficientBalance",
       "msg": "insufficient balance"
     },
     {
-      "code": 6004,
+      "code": 6005,
+      "name": "InsifficentWithdraw",
+      "msg": "should withdraw atleast 1 SOL"
+    },
+    {
+      "code": 6006,
       "name": "InvalidWarehouse",
       "msg": "warehouse not found"
     },
     {
-      "code": 6005,
+      "code": 6007,
       "name": "InvalidLogistics",
       "msg": "logistics not found"
     },
     {
-      "code": 6006,
+      "code": 6008,
       "name": "InvalidInspectionOutcome",
       "msg": "inspection outcome too long"
     },
     {
-      "code": 6007,
+      "code": 6009,
       "name": "InvalidNotes",
       "msg": "notes too long"
     },
     {
-      "code": 6008,
+      "code": 6010,
       "name": "InvalidName",
       "msg": "name too long"
     },
     {
-      "code": 6009,
+      "code": 6011,
       "name": "InvalidDescription",
       "msg": "description too long"
     },
     {
-      "code": 6010,
+      "code": 6012,
       "name": "InvalidContactInfo",
       "msg": "contact info too long"
     },
     {
-      "code": 6011,
+      "code": 6013,
       "name": "InvalidRole",
       "msg": "invalid role"
     },
     {
-      "code": 6012,
+      "code": 6014,
       "name": "InvalidFactory",
       "msg": "invalid factory"
     },
     {
-      "code": 6013,
+      "code": 6015,
       "name": "QualityChecked",
       "msg": "quality already checked"
     },
     {
-      "code": 6014,
+      "code": 6016,
       "name": "ProductNotQualityChecked",
       "msg": "product not quality checked"
     },
     {
-      "code": 6015,
+      "code": 6017,
       "name": "InvalidInspectorId",
       "msg": "invalid inspector id"
     },
     {
-      "code": 6016,
+      "code": 6018,
       "name": "InvalidInspector",
       "msg": "invalid inspector"
     },
     {
-      "code": 6017,
+      "code": 6019,
       "name": "InvalidUser",
       "msg": "invalid user"
     },
     {
-      "code": 6018,
+      "code": 6020,
       "name": "Overflow",
       "msg": "overflow"
     }
@@ -1422,6 +1520,26 @@
           {
             "name": "owner",
             "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProgramState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "platform_fee",
+            "type": "u64"
+          },
+          {
+            "name": "initialized",
+            "type": "bool"
           }
         ]
       }
