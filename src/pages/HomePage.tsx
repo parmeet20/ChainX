@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Card,
   CardHeader,
@@ -6,126 +7,211 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
 
 const HomePage = () => {
+  const [globeWidth, setGlobeWidth] = useState(0);
+  const [globeHeight, setGlobeHeight] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Globe configuration
+  const N = 20;
+  const arcsData = [...Array(N).keys()].map(() => ({
+    startLat: (Math.random() - 0.5) * 180,
+    startLng: (Math.random() - 0.5) * 360,
+    endLat: (Math.random() - 0.5) * 180,
+    endLng: (Math.random() - 0.5) * 360,
+    color: [
+      ["#2563eb", "#3b82f6", "#6366f1"][Math.round(Math.random() * 2)],
+      ["#9333ea", "#c026d3", "#db2777"][Math.round(Math.random() * 2)]
+    ],
+  }));
+
+  // Feature cards data
+  const features = [
+    { 
+      title: "Blockchain Transparency", 
+      description: "Every transaction and movement recorded immutably on the high-performance Solana blockchain." 
+    },
+    { 
+      title: "Real-Time Tracking", 
+      description: "Monitor shipments with live data feeds and potential IoT sensor integration, secured by Solana." 
+    },
+    { 
+      title: "Smart Contracts", 
+      description: "Automate payments, agreements, and compliance checks using efficient Solana smart contracts." 
+    },
+  ];
+
+  // Stats data
+  const stats = [
+    { value: "1M+", label: "Transactions Processed Daily" },
+    { value: "~400ms", label: "Average Block Time" },
+    { value: "<$0.00025", label: "Avg. Transaction Fee" },
+  ];
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        setGlobeWidth(containerRef.current.offsetWidth);
+        setGlobeHeight(containerRef.current.offsetHeight);
+      }
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Hero Section */}
-      <main className="relative z-10 pt-24 sm:pt-24 md:pt-24 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 text-gray-900 dark:text-slate-300">
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+    <div
+      ref={containerRef}
+      className={
+        "relative min-h-screen overflow-hidden pt-24 " +
+        "bg-gradient-to-br from-white via-blue-50 to-purple-50 " +
+        "dark:from-gray-950 dark:via-slate-900 dark:to-purple-950 " +
+        "text-slate-900 dark:text-slate-100"
+      }
+    >
+      {/* Animated Globe */}
+      {globeWidth > 0 && globeHeight > 0 && (
+        <div className="absolute inset-0 z-0 opacity-40 dark:opacity-30">
+          <Globe
+            width={globeWidth}
+            height={globeHeight}
+            globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
+            arcsData={arcsData}
+            arcColor={"color"}
+            arcDashLength={() => Math.random()}
+            arcDashGap={() => Math.random()}
+            arcDashAnimateTime={() => Math.random() * 4000 + 1000}
+            arcStroke={0.3}
+            atmosphereColor={"#6366F1"}
+            atmosphereAltitude={0.2}
+          />
+        </div>
+      )}
+
+      <motion.main
+        className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-16 sm:px-6 lg:px-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="max-w-5xl mx-auto text-center">
+          {/* Hero Section */}
+          <motion.h1
+            className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl mb-8"
+            variants={itemVariants}
+          >
+            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent pb-2">
               Supply Chain
             </span>
-            <br />
-            <span className="text-gray-700 dark:text-slate-300">
+            <span className="block text-slate-700 dark:text-slate-300 text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-2">
               Powered by Solana
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+          <motion.p
+            className="text-lg sm:text-xl text-slate-700 dark:text-slate-400 mb-12 max-w-3xl mx-auto"
+            variants={itemVariants}
+          >
             Revolutionize your supply chain management with blockchain-powered
-            transparency, real-time tracking, and immutable audit trails.
-          </p>
+            transparency, real-time tracking, and immutable audit trails, built
+            on the speed and efficiency of Solana.
+          </motion.p>
 
-          <div className="flex justify-center gap-6">
-            <Link href="/profile">
-              <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-semibold leading-6 text-white inline-block">
-                <span className="absolute inset-0 overflow-hidden rounded-full">
-                  <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                </span>
-                <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1.5 px-4 ring-1 ring-white/10">
-                  <span>Get Started</span>
-                  <svg
-                    fill="none"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10.75 8.75L14.25 12L10.75 15.25"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                </div>
-                <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
-              </button>
+          <motion.div className="flex justify-center gap-6 mb-24" variants={itemVariants}>
+            <Link href="/profile" legacyBehavior>
+              <a className={
+                "inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white transition duration-300 ease-in-out transform " +
+                "bg-gradient-to-r from-blue-600 to-purple-600 border border-transparent rounded-full shadow-lg " +
+                "hover:scale-105 hover:shadow-blue-500/40 " +
+                "dark:hover:shadow-purple-500/60 " +
+                "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 " +
+                "focus:ring-offset-white dark:focus:ring-offset-gray-950"
+              }>
+                Get Started
+                <svg
+                  className="ml-2 -mr-1 w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </a>
             </Link>
-          </div>
+          </motion.div>
         </div>
 
         {/* Feature Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mt-24 max-w-7xl mx-auto">
-          <Card className="bg-white border border-gray-300 backdrop-blur-sm hover:border-indigo-400 transition-all hover:shadow-lg hover:-translate-y-1 dark:bg-slate-900/50 dark:border-slate-800 dark:hover:border-indigo-400">
-            <CardHeader>
-              <CardTitle className="text-indigo-400 dark:text-indigo-400">
-                Blockchain Transparency
-              </CardTitle>
-              <CardDescription className="text-gray-600 dark:text-slate-400">
-                Every transaction and movement recorded immutably on Solana
-                blockchain
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="bg-white border border-gray-300 backdrop-blur-sm hover:border-indigo-400 transition-all hover:shadow-lg hover:-translate-y-1 dark:bg-slate-900/50 dark:border-slate-800 dark:hover:border-indigo-400">
-            <CardHeader>
-              <CardTitle className="text-indigo-400 dark:text-indigo-400">
-                Real-Time Tracking
-              </CardTitle>
-              <CardDescription className="text-gray-600 dark:text-slate-400">
-                Monitor shipments with live GPS tracking and IoT sensor
-                integration
-              </CardDescription>
-            </CardHeader>
-          </Card>
-
-          <Card className="bg-white border border-gray-300 backdrop-blur-sm hover:border-indigo-400 transition-all hover:shadow-lg hover:-translate-y-1 dark:bg-slate-900/50 dark:border-slate-800 dark:hover:border-indigo-400">
-            <CardHeader>
-              <CardTitle className="text-indigo-400 dark:text-indigo-400">
-                Smart Contracts
-              </CardTitle>
-              <CardDescription className="text-gray-600 dark:text-slate-400">
-                Automate payments and agreements with self-executing contracts
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl"
+          variants={containerVariants}
+        >
+          {features.map((feature, index) => (
+            <motion.div key={index} variants={itemVariants}>
+              <Card className={
+                "transition-all duration-300 ease-in-out rounded-xl overflow-hidden backdrop-blur-lg " +
+                "bg-white/90 border border-slate-100 shadow-xl hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 " +
+                "dark:bg-slate-800/60 dark:border-slate-700/80 dark:hover:border-indigo-500/80"
+              }>
+                <CardHeader className="p-6">
+                  <CardTitle className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
+                    {feature.title}
+                  </CardTitle>
+                  <CardDescription className="text-slate-700 dark:text-slate-400 text-base">
+                    {feature.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Stats Section */}
-        <div className="mt-24 bg-white backdrop-blur-sm border border-gray-300 rounded-2xl p-8 max-w-7xl mx-auto dark:bg-slate-900/50 dark:border-slate-800">
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-gray-300 dark:divide-slate-800">
-            <div className="text-center py-4 sm:py-0">
-              <div className="text-4xl font-bold text-indigo-400 dark:text-indigo-500">
-                1M+
+        <motion.div
+          className={
+            "mt-24 w-full max-w-5xl rounded-3xl p-8 backdrop-blur-lg " +
+            "bg-white/90 border border-slate-100 shadow-2xl " +
+            "dark:bg-slate-800/60 dark:border-slate-700/80"
+          }
+          variants={itemVariants}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-700">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center px-4 py-6 sm:py-0">
+                <div className="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-gray-600 mt-2 dark:text-slate-400">
-                Transactions Daily
-              </div>
-            </div>
-            <div className="text-center py-4 sm:py-0">
-              <div className="text-4xl font-bold text-indigo-400 dark:text-indigo-500">
-                500ms
-              </div>
-              <div className="text-gray-600 mt-2 dark:text-slate-400">
-                Average Block Time
-              </div>
-            </div>
-            <div className="text-center py-4 sm:py-0">
-              <div className="text-4xl font-bold text-indigo-400 dark:text-indigo-500">
-                $0.0001
-              </div>
-              <div className="text-gray-600 mt-2 dark:text-slate-400">
-                Avg Transaction Cost
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
-      </main>
+        </motion.div>
+      </motion.main>
     </div>
   );
 };
